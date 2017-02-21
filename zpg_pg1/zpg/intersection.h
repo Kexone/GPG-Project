@@ -22,12 +22,13 @@ namespace Intersection
 		//double c = (SQR(A.x - S.x) + SQR(A.y - S.y) + SQR(A.z - S.z)) * (SQR(u.x));
 		double c = SQR(A.x - S.x) + SQR(A.y - S.y) + SQR(A.z - S.z) - SQR(sphere_area.radius);
 		float discriminant = SQR(b) - 4 * c;
-		if (discriminant >= 0 || discriminant > 0.05) {
+		if (discriminant >= 0) {
+			float disc = sqrt(discriminant);
 			ray.tfar = -b / 2.0;
-			t1 = (-b + sqrt(discriminant)) / 2.0;
+			t1 = (-b + disc) / 2.0;
 			if (discriminant != 0) {
 
-				t2 = (-b - sqrt(discriminant)) / 2.0;
+				t2 = (-b - disc) / 2.0;
 				if (t2 > ray.tnear) {
 
 					ray.tfar = t2;

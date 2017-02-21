@@ -18,6 +18,7 @@
 #include <random>
 #include <functional>
 #include <algorithm>
+#include <time.h>
 
 // visual leak detector 2.5
 //#include <vld.h>
