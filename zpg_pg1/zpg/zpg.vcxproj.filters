@@ -31,6 +31,9 @@
     <Filter Include="Header Files\tracing">
       <UniqueIdentifier>{e4dd1c29-49a5-42f6-a3f6-434f12a573e1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\shader">
+      <UniqueIdentifier>{a018e661-c200-4e82-a17d-aa69daf9e49a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -157,6 +160,12 @@
     </ClInclude>
     <ClInclude Include="pg1.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="phongShader.h">
+      <Filter>Header Files\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="lambertShader.h">
+      <Filter>Header Files\shader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

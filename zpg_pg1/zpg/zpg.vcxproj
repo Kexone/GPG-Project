@@ -223,8 +223,10 @@
     <ClInclude Include="camera.h" />
     <ClInclude Include="CubeMap.h" />
     <ClInclude Include="intersection.h" />
+    <ClInclude Include="lambertShader.h" />
     <ClInclude Include="objloader.h" />
     <ClInclude Include="pg1.h" />
+    <ClInclude Include="phongShader.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="test.h" />

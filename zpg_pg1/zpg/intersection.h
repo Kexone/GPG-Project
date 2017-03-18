@@ -2,17 +2,22 @@
 #define VSB_GPG_INTERSECT_H
 
 #include "stdafx.h"
-namespace Intersection
+
+class Intersection
 {
+public:
 	struct SphereArea
 	{
 		Vector3 center;
 		double radius;
 	};
-	
-	struct QuadricArea {
-		union {
-			struct {
+
+	struct QuadricArea
+	{
+		union
+		{
+			struct
+			{
 				float a11;
 				float a22;
 				float a33;
@@ -29,8 +34,10 @@ namespace Intersection
 
 			float data[10];
 		};
+	};
 
-		static Ray intersect(Ray& ray, SphereArea sphere_area) {
+		static Ray intersect(Ray& ray, SphereArea sphere_area)
+		{
 			Vector3 S = sphere_area.center; // sphere
 			Vector3 A = ray.org;
 			Vector3 u = ray.dir;
@@ -42,22 +49,24 @@ namespace Intersection
 			double b = 2 * (A.x * u.x + A.y * u.y + A.z * u.z - u.x * S.x - u.y * S.y - u.z * S.z);
 			double c = SQR(A.x - S.x) + SQR(A.y - S.y) + SQR(A.z - S.z) - SQR(sphere_area.radius);
 			float discriminant = SQR(b) - 4 * c;
-			if (discriminant >= 0) {
+			if (discriminant >= 0)
+			{
 				float disc = sqrt(discriminant);
 				ray.tfar = -b / 2.0;
 				t1 = (-b + disc) / 2.0;
-				if (discriminant != 0) {
-
+				if (discriminant != 0)
+				{
 					t2 = (-b - disc) / 2.0;
-					if (t2 > ray.tnear) {
-
+					if (t2 > ray.tnear)
+					{
 						ray.tfar = t2;
 					}
-					else {
-
+					else
+					{
 						ray.tfar = t1;
 					}
-					if (t1 < ray.tnear && t2 < ray.tnear) { //pokud se oba trefili za
+					if (t1 < ray.tnear && t2 < ray.tnear)
+					{ //pokud se oba trefili za
 
 						ray.geomID = RTC_INVALID_GEOMETRY_ID;
 						return ray;
@@ -70,14 +79,14 @@ namespace Intersection
 					return ray;
 				}
 			}
-			else {
-
+			else
+			{
 				return ray;
 			}
 		}
 
 
-		static Ray intesectQuadric(Ray& ray, Intersection::QuadricArea qa)
+		static Ray intersectQuadric(Ray& ray, QuadricArea qa)
 		{
 			Vector3 A = ray.org;
 			Vector3 u = ray.dir;
@@ -89,22 +98,24 @@ namespace Intersection
 			double c = qa.a11 * SQR(u.x) + qa.a22 * SQR(u.y) + qa.a33 * SQR(u.z) + 2 * qa.a12 * u.x * u.y + 2 * qa.a13 * u.x * u.z + 2 * qa.a23 * u.y * u.z;
 
 			float discriminant = SQR(b) - 4 * c;
-			if (discriminant >= 0) {
+			if (discriminant >= 0)
+			{
 				float disc = sqrt(discriminant);
 				ray.tfar = -b / 2.0;
 				t1 = (-b + disc) / 2.0;
-				if (discriminant != 0) {
-
+				if (discriminant != 0)
+				{
 					t2 = (-b - disc) / 2.0;
-					if (t2 > ray.tnear) {
-
+					if (t2 > ray.tnear)
+					{
 						ray.tfar = t2;
 					}
-					else {
-
+					else
+					{
 						ray.tfar = t1;
 					}
-					if (t1 < ray.tnear && t2 < ray.tnear) { //pokud se oba trefili za
+					if (t1 < ray.tnear && t2 < ray.tnear)
+					{ //pokud se oba trefili za
 
 						ray.geomID = RTC_INVALID_GEOMETRY_ID;
 						return ray;
@@ -117,14 +128,11 @@ namespace Intersection
 					return ray;
 				}
 			}
-			else {
-
+			else
+			{
 				return ray;
 			}
 		};
-
-
 	};
-}
 
 #endif //VSB_GPG_INTERSECT_H

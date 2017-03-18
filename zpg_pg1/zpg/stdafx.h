@@ -75,3 +75,6 @@
 
 #include "intersection.h"
 #include "test.h"
+
+#include "phongShader.h"
+#include "lambertShader.h"
