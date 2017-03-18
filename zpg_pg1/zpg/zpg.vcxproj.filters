@@ -167,5 +167,17 @@
     <ClInclude Include="lambertShader.h">
       <Filter>Header Files\shader</Filter>
     </ClInclude>
+    <ClInclude Include="brdfTrace.h">
+      <Filter>Header Files\tracing</Filter>
+    </ClInclude>
+    <ClInclude Include="rayTrace.h">
+      <Filter>Header Files\tracing</Filter>
+    </ClInclude>
+    <ClInclude Include="objects.h">
+      <Filter>Header Files\geom</Filter>
+    </ClInclude>
+    <ClInclude Include="normalShader.h">
+      <Filter>Header Files\shader</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

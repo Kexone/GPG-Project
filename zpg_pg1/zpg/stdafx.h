@@ -78,3 +78,6 @@
 
 #include "phongShader.h"
 #include "lambertShader.h"
+#include "normalShader.h"
+#include "brdfTrace.h"
+#include "rayTrace.h"

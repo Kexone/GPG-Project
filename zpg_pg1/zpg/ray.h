@@ -17,6 +17,8 @@ struct Ray : RTCRay
 	Vector3 collided_normal;
 	bool customIntersector = false;
 
+	Ray() {};
+
 	Ray( const Vector3 & origin, Vector3 direction, const float t_near = 0.0f, const float t_far = FLT_MAX )
 	{
 		org[0] = origin.x;

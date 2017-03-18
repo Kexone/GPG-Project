@@ -12,12 +12,9 @@ public:
 		double radius;
 	};
 
-	struct QuadricArea
-	{
-		union
-		{
-			struct
-			{
+	struct QuadricArea	{
+		union {
+			struct {
 				float a11;
 				float a22;
 				float a33;
@@ -34,8 +31,19 @@ public:
 
 			float data[10];
 		};
-	};
 
+		QuadricArea(float a11, float a22, float a33, float a12, float a13, float a23, float a14, float a24, float a34, float a44) :
+			a11(a11), a22(a22), a33(a33), a12(a12), a13(a13), a23(a23), a14(a14), a24(a24), a34(a34), a44(a44) {};
+
+		Vector3 getNormal(Vector3 intersectPoint) {
+			return Vector3(
+				2 * (a11 * intersectPoint.x + a12 * intersectPoint.y + a13 * intersectPoint.z + a14),
+				2 * (a22 * intersectPoint.y + a12 * intersectPoint.x + a23 * intersectPoint.z + a24),
+				2 * (a33 * intersectPoint.z + a13 * intersectPoint.x + a23 * intersectPoint.y + a34)
+			);
+		}
+	};
+		
 		static Ray intersect(Ray& ray, SphereArea sphere_area)
 		{
 			Vector3 S = sphere_area.center; // sphere
@@ -83,6 +91,7 @@ public:
 			{
 				return ray;
 			}
+			return {};
 		}
 
 
@@ -97,7 +106,7 @@ public:
 			double b = 2 * (qa.a11 * A.x * u.x + qa.a22 * A.y * u.y + qa.a33 * A.z * u.z + qa.a12 * A.x * u.y + qa.a12 * A.y * u.x + qa.a13 * A.x * u.z + qa.a13 * A.z * u.x + qa.a23 * A.y * u.z + qa.a23 * A.z * u.y + qa.a14 * u.x + qa.a24 * u.y + qa.a34 * u.z);
 			double c = qa.a11 * SQR(u.x) + qa.a22 * SQR(u.y) + qa.a33 * SQR(u.z) + 2 * qa.a12 * u.x * u.y + 2 * qa.a13 * u.x * u.z + 2 * qa.a23 * u.y * u.z;
 
-			float discriminant = SQR(b) - 4 * c;
+			float discriminant = SQR(b) - (4.0f * a * c);
 			if (discriminant >= 0)
 			{
 				float disc = sqrt(discriminant);
@@ -122,7 +131,8 @@ public:
 					}
 
 					ray.customIntersector = true;
-					ray.collided_normal = ray.eval(ray.tfar);
+					ray.collided_normal = (qa.getNormal(ray.getIntersectPoint()));
+					//ray.collided_normal = ray.eval(ray.tfar);
 					ray.collided_normal.Normalize();
 					ray.geomID = 0;
 					return ray;
@@ -132,6 +142,7 @@ public:
 			{
 				return ray;
 			}
+
 		};
 	};
 

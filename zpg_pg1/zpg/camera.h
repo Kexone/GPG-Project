@@ -11,6 +11,7 @@
 class Camera
 {
 public:
+	Camera() {};
 	Camera( const int width, const int height, const Vector3 & view_from,
 		const Vector3 & viet_at, const float fov_y );
 
