@@ -29,19 +29,24 @@ public:
 			ray = Intersection::intersect(ray, Objects::getSphere());
 			break;
 		case 2:
-			ray = Intersection::intersectQuadric(ray, Objects::getQuadricSphere());
+		//	ray = Intersection::intersectQuadric(ray, Objects::getQuadricSphere());
+			ray = Intersection::intersectQuadricPlane(ray, Objects::getQuadricSphere());
 			break;
 		case 3:
-			ray = Intersection::intersectQuadric(ray, Objects::getCylinder());
+			//ray = Intersection::intersectQuadric(ray, Objects::getCylinder());
+			ray = Intersection::intersectQuadricPlane(ray, Objects::getCylinder());
 			break;
 		case 4:
-			ray = Intersection::intersectQuadric(ray, Objects::getEllipsoid());
+			//ray = Intersection::intersectQuadric(ray, Objects::getEllipsoid());
+			ray = Intersection::intersectQuadricPlane(ray, Objects::getEllipsoid());
 			break;
 		case 5:
-			ray = Intersection::intersectQuadric(ray, Objects::getParaboloid());
+			//ray = Intersection::intersectQuadric(ray, Objects::getParaboloid());
+			ray = Intersection::intersectQuadricPlane(ray, Objects::getParaboloid());
 			break;
 		case 6:
-			ray = Intersection::intersectQuadric(ray, Objects::getTwoPartParaboloid());
+			//ray = Intersection::intersectQuadric(ray, Objects::getTwoPartParaboloid());
+			ray = Intersection::intersectQuadricPlane(ray, Objects::getTwoPartParaboloid());
 			break;
 		}
 		
