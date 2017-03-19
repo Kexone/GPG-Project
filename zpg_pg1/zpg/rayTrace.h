@@ -29,24 +29,24 @@ public:
 			ray = Intersection::intersect(ray, Objects::getSphere());
 			break;
 		case 2:
-		//	ray = Intersection::intersectQuadric(ray, Objects::getQuadricSphere());
-			ray = Intersection::intersectQuadricPlane(ray, Objects::getQuadricSphere());
+			ray = Intersection::intersectQuadric(ray, Objects::getQuadricSphere());
+		//	ray = Intersection::intersectQuadricPlane(ray, Objects::getQuadricSphere());
 			break;
 		case 3:
-			//ray = Intersection::intersectQuadric(ray, Objects::getCylinder());
-			ray = Intersection::intersectQuadricPlane(ray, Objects::getCylinder());
+			ray = Intersection::intersectQuadric(ray, Objects::getCylinder());
+	//		ray = Intersection::intersectQuadricPlane(ray, Objects::getCylinder());
 			break;
 		case 4:
-			//ray = Intersection::intersectQuadric(ray, Objects::getEllipsoid());
-			ray = Intersection::intersectQuadricPlane(ray, Objects::getEllipsoid());
+			ray = Intersection::intersectQuadric(ray, Objects::getEllipsoid());
+	//		ray = Intersection::intersectQuadricPlane(ray, Objects::getEllipsoid());
 			break;
 		case 5:
-			//ray = Intersection::intersectQuadric(ray, Objects::getParaboloid());
-			ray = Intersection::intersectQuadricPlane(ray, Objects::getParaboloid());
+			ray = Intersection::intersectQuadric(ray, Objects::getParaboloid());
+		//	ray = Intersection::intersectQuadricPlane(ray, Objects::getParaboloid());
 			break;
 		case 6:
-			//ray = Intersection::intersectQuadric(ray, Objects::getTwoPartParaboloid());
-			ray = Intersection::intersectQuadricPlane(ray, Objects::getTwoPartParaboloid());
+			ray = Intersection::intersectQuadric(ray, Objects::getTwoPartParaboloid());
+			//ray = Intersection::intersectQuadricPlane(ray, Objects::getTwoPartParaboloid());
 			break;
 		}
 		
@@ -88,7 +88,7 @@ public:
 			//Color4 texel = Color4(surface->get_material()->diffuse.x, surface->get_material()->diffuse.y, surface->get_material()->diffuse.z, 1);
 			//if (texture != nullptr)
 			//texel = texture->get_texel(texture_coord.x, texture_coord.y);
-			if (mat->get_name().compare("wire_214229166") == 0 || mat->get_name().compare("green_plastic_transparent") == 0 || false) {
+			if (mat->get_name().compare("wire_214229166") == 0 || mat->get_name().compare("green_plastic_transparent") == 0 || true) {
 				Vector3 dir = ray.getDir();
 				//Vector3 reflected = 2 * (normalizedNormal.PosDotProduct(-dir)) * normalizedNormal - (-dir);
 				float n1 = IOR_AIR;
