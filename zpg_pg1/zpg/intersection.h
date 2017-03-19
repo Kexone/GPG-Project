@@ -110,12 +110,12 @@ public:
 			if (discriminant >= 0)
 			{
 				float disc = sqrt(discriminant);
-				ray.tfar = -b / 2.0;
-				t1 = (-b + disc) / 2.0;
+				ray.tfar = -b / (2.0 *a);
+				t1 = (-b + disc) / (2.0 *a);
 				if (discriminant != 0)
 				{
-					t2 = (-b - disc) / 2.0;
-					if (t2 > ray.tnear)
+					t2 = (-b - disc) / (2.0 *a);
+					if (t2 < t1)
 					{
 						ray.tfar = t2;
 					}
@@ -123,19 +123,23 @@ public:
 					{
 						ray.tfar = t1;
 					}
-					if (t1 < ray.tnear && t2 < ray.tnear)
+					if (ray.tfar < ray.tnear)
 					{ //pokud se oba trefili za
 
+						ray.customIntersector = true;
+						ray.collided_normal = (qa.getNormal(ray.eval(ray.tfar)));//(qa.getNormal(ray.getIntersectPoint()));
+																				 //ray.collided_normal = ray.eval(ray.tfar);
+						ray.collided_normal.Normalize();
+						ray.geomID = 0;
+						return ray;
+					}
+					else
+					{
 						ray.geomID = RTC_INVALID_GEOMETRY_ID;
 						return ray;
 					}
 
-					ray.customIntersector = true;
-					ray.collided_normal = (qa.getNormal(ray.getIntersectPoint()));
-					//ray.collided_normal = ray.eval(ray.tfar);
-					ray.collided_normal.Normalize();
-					ray.geomID = 0;
-					return ray;
+					
 				}
 			}
 			else
