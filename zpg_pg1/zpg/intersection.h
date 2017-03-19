@@ -179,8 +179,8 @@ public:
 		float discriminant = calcDiscriminant(a, b, c);
 		if (discriminant >= 0)
 		{
-			Plane planeTop(Vector3(1.0f, 1.0f, 1.0f), Vector3(0.0f, 0.0f, 1.0f));
-			Plane planeBottom(Vector3(-1.0f, -1.0f, -1.0f), Vector3(0.0f, 0.0f, -1.0f));
+			Plane planeTop(Vector3(1.0f, -1.0f, 0.0f), Vector3(0.0f, 1.0f, 1.0f));
+			Plane planeBottom(Vector3(-1.0f, -1.0f, -1.0f), Vector3(1.0f, 0.0f, -1.0f));
 			bool usePlaneNormal = false;
 			// Calculate plane intersects
 			float r1 = planeTop.eval(A, u);
@@ -233,7 +233,7 @@ public:
 			ray.collided_normal = normal;//(qa.getNormal(ray.getIntersectPoint()));
 																	 //ray.collided_normal = ray.eval(ray.tfar);
 			ray.collided_normal.Normalize();
-			ray.geomID = 10;
+			ray.geomID = 0;
 			return ray;
 
 		}

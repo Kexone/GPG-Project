@@ -71,9 +71,11 @@ public:
 			const Vector3 p = ray.eval(ray.tnear);
 			
 			bool shadow = false;// inShadow(scene, p, lights[0]->position - p);
-			Color4 phong = PhongShader::getPhong(p, normal, surface, texture_coord, lights[0], ray.dir, !shadow);
+			Color4 lambert = LambertShader::getLambert(p, normal, surface, texture_coord, lights[0]);
+			//Color4 phong = PhongShader::getPhong(p, normal, surface, texture_coord, lights[0], ray.dir, !shadow);
 			if (depth == 0)
-				return phong;
+				//return phong;
+				return lambert;
 			Vector3 rayDirection = Vector3(ray.dir[0], ray.dir[1], ray.dir[2]);
 			rayDirection.Normalize();
 			Vector3 normalizedNormal = Vector3(normal);
@@ -86,7 +88,7 @@ public:
 			//Color4 texel = Color4(surface->get_material()->diffuse.x, surface->get_material()->diffuse.y, surface->get_material()->diffuse.z, 1);
 			//if (texture != nullptr)
 			//texel = texture->get_texel(texture_coord.x, texture_coord.y);
-			if (mat->get_name().compare("wire_214229166") == 0 || mat->get_name().compare("green_plastic_transparent") == 0 || true) {
+			if (mat->get_name().compare("wire_214229166") == 0 || mat->get_name().compare("green_plastic_transparent") == 0 || false) {
 				Vector3 dir = ray.getDir();
 				//Vector3 reflected = 2 * (normalizedNormal.PosDotProduct(-dir)) * normalizedNormal - (-dir);
 				float n1 = IOR_AIR;
@@ -153,7 +155,8 @@ public:
 			}
 
 			//return 0.5f * phong + (shadow ? 0.1f : 1.0f) * rayTrace(r, scene, surfaces, cam, cubeMap, lights, --depth) * surface->get_material()->reflectivity * Color4(surface->get_material()->specular, 1) * 0.5f;
-			return 0.5f * phong + rayTrace(r, scene, surfaces, cam, cubeMap, lights, --depth) * surface->get_material()->reflectivity * Color4(surface->get_material()->specular, 1) * 0.5f;
+			//return 0.5f * phong + rayTrace(r, scene, surfaces, cam, cubeMap, lights, --depth) * surface->get_material()->reflectivity * Color4(surface->get_material()->specular, 1) * 0.5f;
+			return 0.5f * lambert + rayTrace(r, scene, surfaces, cam, cubeMap, lights, --depth) * surface->get_material()->reflectivity * Color4(surface->get_material()->specular, 1) * 0.5f;
 		}
 		else {
 			Vector3 dir = Vector3(ray.dir);
