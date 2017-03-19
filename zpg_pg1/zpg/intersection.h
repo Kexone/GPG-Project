@@ -95,17 +95,18 @@ public:
 		}
 
 
-		static Ray intersectQuadric(Ray& ray, QuadricArea qa)
+		static Ray intersectQuadric(Ray& ray, QuadricArea q)
 		{
 			Vector3 A = ray.org;
 			Vector3 u = ray.dir;
 			u.Normalize();
 			double t1, t2;
 
-			double a = qa.a11 * SQR(A.x) + qa.a22 * SQR(A.y) + qa.a33 * SQR(A.z) + 2 * qa.a12 * A.x * A.y + 2 * qa.a13 * A.x * A.z + 2 * qa.a23 * A.y * A.z + 2 * qa.a14 * A.x + 2 * qa.a24 * A.y + 2 * qa.a34 * A.z + qa.a44;
-			double b = 2 * (qa.a11 * A.x * u.x + qa.a22 * A.y * u.y + qa.a33 * A.z * u.z + qa.a12 * A.x * u.y + qa.a12 * A.y * u.x + qa.a13 * A.x * u.z + qa.a13 * A.z * u.x + qa.a23 * A.y * u.z + qa.a23 * A.z * u.y + qa.a14 * u.x + qa.a24 * u.y + qa.a34 * u.z);
-			double c = qa.a11 * SQR(u.x) + qa.a22 * SQR(u.y) + qa.a33 * SQR(u.z) + 2 * qa.a12 * u.x * u.y + 2 * qa.a13 * u.x * u.z + 2 * qa.a23 * u.y * u.z;
-
+			float a = (q.a11 * SQR(u.x)) + (q.a22 * SQR(u.y)) + (q.a33 * SQR(u.z)) + 2 * ((q.a12 * u.x * u.y) + (q.a13 * u.x * u.z) + (q.a23 * u.y * u.z));
+			float b = 2 * ((q.a11 * A.x * u.x) + (q.a22 * A.y * u.y) + (q.a33 * A.z * u.z) + (q.a12 * A.x * u.y) + (q.a12 * A.y * u.x) + (q.a13 * A.x * u.z) + (q.a13 * A.z * u.x)
+				+ (q.a23 * A.y * u.z) + (q.a23 * A.z * u.y) + (q.a14 * u.x) + (q.a24 * u.y) + (q.a34 * u.z));
+			float c = (q.a11 * SQR(A.x)) + (q.a22 * SQR(A.y)) + (q.a33 * SQR(A.z)) + 2 * ((q.a12 * A.x * A.y) + (q.a13 * A.x * A.z) + (q.a23 * A.y * A.z)
+				+ (q.a14 * A.x) + (q.a24 * A.y) + (q.a34 * A.z)) + q.a44;
 			float discriminant = SQR(b) - (4.0f * a * c);
 			if (discriminant >= 0)
 			{
@@ -126,18 +127,16 @@ public:
 					if (ray.tfar < ray.tnear)
 					{ //pokud se oba trefili za
 
-						ray.customIntersector = true;
-						ray.collided_normal = (qa.getNormal(ray.eval(ray.tfar)));//(qa.getNormal(ray.getIntersectPoint()));
-																				 //ray.collided_normal = ray.eval(ray.tfar);
-						ray.collided_normal.Normalize();
-						ray.geomID = 0;
-						return ray;
-					}
-					else
-					{
 						ray.geomID = RTC_INVALID_GEOMETRY_ID;
 						return ray;
+						
 					}
+					ray.customIntersector = true;
+					ray.collided_normal = (q.getNormal(ray.eval(ray.tfar)));//(qa.getNormal(ray.getIntersectPoint()));
+																			 //ray.collided_normal = ray.eval(ray.tfar);
+					ray.collided_normal.Normalize();
+					ray.geomID = 0;
+					return ray;
 
 					
 				}
